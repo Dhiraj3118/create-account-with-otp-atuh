@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Send Mail</title>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- form for OTP -->
+    <form method="post" id="otp-form">
+      <h1>Verify Your Email ID</h1>
+      <button id="not-ur-email"></button>
+      <label>
+        <input
+          id="OTP"
+          type="text"
+          maxlength="6"
+          minlength="6"
+          pattern="[0-9]{6,6}"
+        />
+        <span>Enter OTP</span>
+      </label>
+      <div class="disabled">
+        <button id="verify-btn">Verify OTP</button>
+      </div>
+      <p id="error-msg"></p>
+      <p>Check your spam folder if you are unable to find OTP.</p>
+    </form>
+
+    <div id="main">
+      <h1>Create Your Account</h1>
+
+      <!-- main form -->
+      <form id="main-form" method="post">
+        <!-- email -->
+        <div>
+          <label>
+            <input type="email" id="email" required />
+            <span>Enter Your Email<span class="required">*</span></span>
+            <button id="otp-btn" class="otp-btn" disabled>Send OTP</button>
+          </label>
+        </div>
+
+        <!-- firstname -->
+        <div>
+          <label>
+            <input
+              type="text"
+              id="firstname"
+              required
+              disabled
+              pattern="[a-zA-Z]{3,15}"
+              minlength="3"
+              maxlength="15"
+              title="First Name can have 3 to 15 Characters"
+            />
+            <span>Enter Your First Name<span class="required">*</span></span>
+          </label>
+        </div>
+
+        <!-- lastname -->
+        <div>
+          <label>
+            <input
+              type="text"
+              id="lastname"
+              required
+              disabled
+              pattern="[a-zA-Z]{4,25}"
+              minlength="4"
+              maxlength="25"
+              title="Last Name can have 4 to 25 Characters"
+            />
+            <span>Enter Your Last Name<span class="required">*</span></span>
+          </label>
+        </div>
+
+        <!-- contact number -->
+        <div>
+          <label>
+            <input
+              type="tel"
+              maxlength="10"
+              minlength="10"
+              id="contact"
+              pattern="[0-9]{10,10}"
+              disabled
+              title="Contact number should contain 10 digits"
+            />
+            <span>Enter Your Contact Number</span>
+          </label>
+        </div>
+
+        <!-- password -->
+        <div>
+          <label>
+            <input
+              type="password"
+              id="password"
+              required
+              disabled
+              minlength="6"
+              title="Password should contain minimum 6 characters"
+            />
+            <span>Enter Your Password<span class="required">*</span></span>
+            <button id="password-eye"><span class="far fa-eye"></span></button>
+            <button id="password-eye-slash" class="hidden">
+              <span class="far fa-eye-slash"></span>
+            </button>
+          </label>
+        </div>
+
+        <!-- confirm password -->
+        <div>
+          <label>
+            <input
+              type="password"
+              id="cpassword"
+              required
+              disabled
+              minlength="6"
+              title="Password should contain minimum 6 characters"
+            />
+            <span>Re-Enter Your Password<span class="required">*</span></span>
+            <button id="cpassword-eye"><span class="far fa-eye"></span></button>
+            <button id="cpassword-eye-slash" class="hidden">
+              <span class="far fa-eye-slash"></span>
+            </button>
+          </label>
+        </div>
+
+        <div class="disabled">
+          <button id="submit-btn" disabled>Create Account</button>
+        </div>
+      </form>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+<!-- 0EF12074B10E5FDDD2DE36B6B33B2FC17D07 -->

@@ -1,0 +1,224 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #e52165; */
+  background-color: #5d432a;
+}
+
+.hidden {
+  display: none;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+.disabled button {
+  pointer-events: none;
+}
+
+.required {
+  margin-left: 5px;
+}
+
+.otp-active {
+  top: 1rem;
+}
+
+:disabled {
+  cursor: not-allowed;
+}
+/* *********************** OTP Form ************************** */
+#otp-form {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: -20rem;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 5px 10px 10px 0 rgba(0, 0, 0, 0.3);
+  transition: 0.5s;
+  z-index: 5;
+}
+
+#otp-form label {
+  margin: 1rem;
+}
+
+#OTP {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  width: 18rem;
+  border: none;
+  border-bottom: 2px solid black;
+  outline: none;
+}
+
+#verify-btn {
+  font-size: 1rem;
+  color: white;
+  background-color: #5d432a;
+  border: 2px solid #5d432a;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  transition: 0.4s;
+}
+
+#verify-btn:hover {
+  color: #5d432a;
+  background-color: #fff;
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+#error-msg {
+  color: red;
+  font-size: 1rem;
+  margin: 1rem;
+}
+
+#not-ur-email {
+  background: transparent;
+  border: none;
+  color: #0070ff;
+  border-bottom: 1px solid #0070ff;
+  margin: 1rem;
+}
+/* ***************************** Main Form ********************* */
+#main {
+  margin: 5rem;
+  padding: 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 5px 10px 10px 0 rgba(255, 255, 255, 0.4);
+}
+
+#main h1 {
+  color: #5d432a;
+  margin: 0.5rem 2rem;
+  font-size: 2.5rem;
+}
+
+#main-form {
+  margin: 0 2rem;
+  padding: 2rem 4rem;
+}
+
+#main-form > div {
+  margin: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  width: 20rem;
+  position: relative;
+}
+
+#main-form input {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+  width: 100%;
+}
+
+#main-form input:focus {
+  border-bottom: 2px solid #000;
+}
+
+#password-eye,
+#password-eye-slash,
+#cpassword-eye,
+#cpassword-eye-slash {
+  border: none;
+  background: none;
+  color: black;
+  position: absolute;
+  right: 20px;
+  bottom: 12px;
+}
+
+#submit-btn {
+  margin-top: 1rem;
+  border: 2px solid #5d432a;
+  background-color: #5d432a;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+
+#submit-btn:hover {
+  color: #5d432a;
+  background-color: #fff;
+  box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+input + span {
+  position: absolute;
+  left: 1rem;
+  bottom: 0.5rem;
+  font-size: 1.1rem;
+  color: rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+  user-select: none;
+}
+
+input:disabled + span {
+  cursor: not-allowed;
+}
+
+input:focus + span,
+span.done {
+  font-size: 0.8rem;
+  left: 0;
+  bottom: 2.3rem;
+  color: #000;
+}
+
+/* ************************ OTP Button ************************ */
+.otp-btn {
+  background: none;
+  border: none;
+  color: black;
+  border: 2px dashed black;
+  padding: 0.5rem;
+  margin-left: 1.5rem;
+  position: absolute;
+  right: -6rem;
+  bottom: 0;
+}
+
+.otp-btn.sent {
+  color: green;
+  border: none;
+  border-bottom: 2px solid green;
+}
+
+.otp-btn.verified {
+  color: green;
+  border: none;
+  border-bottom: 2px solid green;
+}

@@ -196,6 +196,10 @@ input + span {
   user-select: none;
 }
 
+input:disabled + span {
+  cursor: not-allowed;
+}
+
 input:focus + span,
 span.done {
   font-size: 0.8rem;

@@ -1,3 +1,5 @@
+// TODO : Make the site responsive
+
 let globalOTP = "";
 let validCount = [0, 0, 0, 0, 0, 0];
 
@@ -47,16 +49,16 @@ function sendEmail() {
     Subject: "OTP for Email Verification",
     Body: `OTP for verification is ${generateOTP()}`,
   }).then(() => {
-    otpForm.style.top = "0";
     otpBtn.textContent = "OTP sent";
     otpBtn.classList.add("sent");
+    otpForm.style.top = "0";
     notYourEmail.textContent = `Change Your Email: ${email.value}`;
   });
 }
 
 // changing Email ID
 function changeEmail() {
-  otpForm.style.top = "-20rem";
+  otpForm.style.top = "-30rem";
   otpBtn.textContent = "Send OTP";
   otpBtn.classList.remove("sent");
 }
@@ -65,7 +67,7 @@ function changeEmail() {
 function verifyOTP() {
   let input = document.getElementById("OTP").value;
   if (input.toString() == globalOTP) {
-    otpForm.style.top = "-20rem";
+    otpForm.style.top = "-30rem";
     otpBtn.textContent = "Email Verified";
     otpBtn.disabled = true;
     otpBtn.classList.remove("sent");
@@ -75,6 +77,8 @@ function verifyOTP() {
       (i) => (i.disabled = false)
     );
     validCount[0] = 1;
+    pswdEye.classList.remove("hidden");
+    cpswdEye.classList.remove("hidden");
   } else {
     errorMsg.textContent = "Incorrect OTP";
   }
@@ -92,8 +96,10 @@ function validateInput(inp, i) {
   if (inp.validity.valid) {
     validCount[i] = 1;
     switchSubmitBtn();
+    inp.parentElement.nextElementSibling.style.visibility = "hidden";
   } else {
     validCount[i] = 0;
+    inp.parentElement.nextElementSibling.style.visibility = "visible";
   }
 }
 
@@ -112,14 +118,28 @@ function switchSubmitBtn() {
   }
 }
 
+function verifyNsubmit() {
+  if (contact.value.length == 0) {
+    // submit without contact
+  } else if (validCount[3]) {
+    // submit with contact
+  } else {
+    // error at contact. dont submit
+    contact.parentElement.nextElementSibling.style.visibility = "visible";
+    contact.focus();
+  }
+}
+
 // ******************** Event Listeners ***************************
 
 //  enable/disable send OTP button depending on email
 email.addEventListener("input", () => {
   if (email.validity.valid) {
     otpBtn.disabled = false;
+    email.parentElement.nextElementSibling.style.visibility = "hidden";
   } else {
     otpBtn.disabled = true;
+    email.parentElement.nextElementSibling.style.visibility = "visible";
   }
 });
 
@@ -138,8 +158,10 @@ notYourEmail.addEventListener("click", (e) => {
 otp.addEventListener("input", () => {
   if (otp.validity.valid) {
     verifyBtn.parentElement.classList.remove("disabled");
+    otp.parentElement.nextElementSibling.style.visibility = "hidden";
   } else {
     verifyBtn.parentElement.classList.add("disabled");
+    otp.parentElement.nextElementSibling.style.visibility = "visible";
   }
 });
 
@@ -196,7 +218,15 @@ cpassword.addEventListener("input", () => {
   if (cpassword.validity.valid && cpassword.value == password.value) {
     validCount[5] = 1;
     switchSubmitBtn();
+    cpassword.parentElement.nextElementSibling.style.visibility = "hidden";
   } else {
     validCount[5] = 0;
+    cpassword.parentElement.nextElementSibling.style.visibility = "visible";
   }
+});
+
+// final verification and submission
+submitBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  verifyNsubmit();
 });

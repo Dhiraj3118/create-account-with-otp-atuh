@@ -12,10 +12,10 @@
 
   <body>
     <!-- form for OTP -->
-    <form method="post" id="otp-form">
+    <form method="post" id="otp-form" autocomplete="off">
       <h1>Verify Your Email ID</h1>
       <button id="not-ur-email"></button>
-      <label>
+      <label class="form-label">
         <input
           id="OTP"
           type="text"
@@ -25,33 +25,38 @@
         />
         <span>Enter OTP</span>
       </label>
+      <p>Length of OTP should be 6 digits</p>
       <div class="disabled">
         <button id="verify-btn">Verify OTP</button>
       </div>
-      <p id="error-msg"></p>
-      <p>Check your spam folder if you are unable to find OTP.</p>
+      <p id="otp-error-msg"></p>
+      <p style="visibility: visible; color: black">
+        Check your spam folder if you are unable to find OTP.
+      </p>
     </form>
 
     <div id="main">
       <h1>Create Your Account</h1>
 
       <!-- main form -->
-      <form id="main-form" method="post">
+      <form id="main-form" method="post" autocomplete="off">
         <!-- email -->
-        <div>
-          <label>
-            <input type="email" id="email" required />
+        <div class="form-group">
+          <label class="form-label">
+            <input type="email" class="form-input" id="email" required />
             <span>Enter Your Email<span class="required">*</span></span>
             <button id="otp-btn" class="otp-btn" disabled>Send OTP</button>
           </label>
+          <p class="error-msg">Email should be of this pattern: abc@xyz.com</p>
         </div>
 
         <!-- firstname -->
-        <div>
-          <label>
+        <div class="form-group">
+          <label class="form-label">
             <input
               type="text"
               id="firstname"
+              class="form-input"
               required
               disabled
               pattern="[a-zA-Z]{3,15}"
@@ -61,14 +66,16 @@
             />
             <span>Enter Your First Name<span class="required">*</span></span>
           </label>
+          <p class="error-msg">Firstname should contain only alphabets</p>
         </div>
 
         <!-- lastname -->
-        <div>
-          <label>
+        <div class="form-group">
+          <label class="form-label">
             <input
               type="text"
               id="lastname"
+              class="form-input"
               required
               disabled
               pattern="[a-zA-Z]{4,25}"
@@ -78,64 +85,79 @@
             />
             <span>Enter Your Last Name<span class="required">*</span></span>
           </label>
+          <p class="error-msg">Lastname should contain only alphabets</p>
         </div>
 
         <!-- contact number -->
-        <div>
-          <label>
+        <div class="form-group">
+          <label class="form-label">
             <input
               type="tel"
               maxlength="10"
               minlength="10"
               id="contact"
+              class="form-input"
               pattern="[0-9]{10,10}"
               disabled
               title="Contact number should contain 10 digits"
             />
             <span>Enter Your Contact Number</span>
           </label>
+          <p class="error-msg">Contact number should have 10 digits</p>
         </div>
 
         <!-- password -->
-        <div>
-          <label>
+        <div class="form-group">
+          <label class="form-label">
             <input
               type="password"
               id="password"
+              class="form-input"
               required
               disabled
               minlength="6"
               title="Password should contain minimum 6 characters"
             />
             <span>Enter Your Password<span class="required">*</span></span>
-            <button id="password-eye"><span class="far fa-eye"></span></button>
-            <button id="password-eye-slash" class="hidden">
+            <button id="password-eye" class="eye hidden">
+              <span class="far fa-eye"></span>
+            </button>
+            <button id="password-eye-slash" class="eye hidden">
               <span class="far fa-eye-slash"></span>
             </button>
           </label>
+          <p class="error-msg">
+            Password should contain mimimum of 6 characters
+          </p>
         </div>
 
         <!-- confirm password -->
-        <div>
-          <label>
+        <div class="form-group">
+          <label class="form-label">
             <input
               type="password"
               id="cpassword"
+              class="form-input"
               required
               disabled
               minlength="6"
               title="Password should contain minimum 6 characters"
             />
             <span>Re-Enter Your Password<span class="required">*</span></span>
-            <button id="cpassword-eye"><span class="far fa-eye"></span></button>
-            <button id="cpassword-eye-slash" class="hidden">
+            <button id="cpassword-eye" class="eye hidden">
+              <span class="far fa-eye"></span>
+            </button>
+            <button id="cpassword-eye-slash" class="eye hidden">
               <span class="far fa-eye-slash"></span>
             </button>
           </label>
+          <p class="error-msg">
+            Confirm Password should should be same as Password
+          </p>
         </div>
 
-        <div class="disabled">
-          <button id="submit-btn" disabled>Create Account</button>
+        <div class="form-group disabled">
+          <button id="submit-btn">Create Account</button>
         </div>
       </form>
     </div>

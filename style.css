@@ -13,8 +13,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* background-color: #e52165; */
   background-color: #5d432a;
+  width: 100%;
 }
 
 .hidden {
@@ -39,6 +39,12 @@ body {
 :disabled {
   cursor: not-allowed;
 }
+
+::selection {
+  color: #fff;
+  background-color: #5d432a;
+}
+
 /* *********************** OTP Form ************************** */
 #otp-form {
   position: absolute;
@@ -46,7 +52,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: -20rem;
+  top: -30rem;
   padding: 1rem 2rem;
   border-radius: 10px;
   background-color: #fff;
@@ -85,7 +91,7 @@ body {
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.3);
 }
 
-#error-msg {
+#otp-error-msg {
   color: red;
   font-size: 1rem;
   margin: 1rem;
@@ -100,8 +106,8 @@ body {
 }
 /* ***************************** Main Form ********************* */
 #main {
-  margin: 5rem;
-  padding: 2rem 4rem;
+  margin: 3rem 0;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -113,7 +119,7 @@ body {
 
 #main h1 {
   color: #5d432a;
-  margin: 0.5rem 2rem;
+  margin: 0.5rem 0;
   font-size: 2.5rem;
 }
 
@@ -122,19 +128,26 @@ body {
   padding: 2rem 4rem;
 }
 
-#main-form > div {
-  margin: 1.5rem;
+.form-group {
+  margin: 1rem 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-label {
+.form-label {
   width: 20rem;
   position: relative;
 }
 
-#main-form input {
+p {
+  color: red;
+  visibility: hidden;
+  margin: 0.5rem;
+}
+
+.form-input {
   padding: 0.5rem 1rem;
   font-size: 1rem;
   outline: none;
@@ -143,14 +156,11 @@ label {
   width: 100%;
 }
 
-#main-form input:focus {
+.form-input:focus {
   border-bottom: 2px solid #000;
 }
 
-#password-eye,
-#password-eye-slash,
-#cpassword-eye,
-#cpassword-eye-slash {
+.eye {
   border: none;
   background: none;
   color: black;
@@ -186,10 +196,6 @@ input + span {
   user-select: none;
 }
 
-input:disabled + span {
-  cursor: not-allowed;
-}
-
 input:focus + span,
 span.done {
   font-size: 0.8rem;
@@ -221,4 +227,24 @@ span.done {
   color: green;
   border: none;
   border-bottom: 2px solid green;
+}
+
+@media screen and (max-width: 640px) {
+  #main {
+    padding: 0;
+    margin: 2rem 4px;
+  }
+  #main h1 {
+    font-size: 1.8rem;
+  }
+  #main-form {
+    margin: 0;
+    padding: 1rem;
+  }
+  .form-label {
+    width: 15rem;
+  }
+  #otp-btn {
+    right: -3rem;
+  }
 }

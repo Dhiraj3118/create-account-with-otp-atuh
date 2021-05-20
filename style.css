@@ -107,7 +107,7 @@ body {
 /* ***************************** Main Form ********************* */
 #main {
   margin: 3rem 0;
-  padding: 2rem;
+  padding: 2rem 4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

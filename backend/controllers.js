@@ -14,10 +14,10 @@ const { google } = require("googleapis");
 // 5. In the api input box type 'https://mail.google.com' and authorize api.
 // 6. Exchange authorization code for token to get refreshToken
 
-const CLIENT_ID = '63049176664-4c2fnngnppqmespv1qrirj8bs5f74pak.apps.googleusercontent.com';
-const CLIENT_SECRET = '8ug2T7waAkfFU5V-EOpaqNHe';
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground';
-const REFRESH_TOKEN = '1//04rl3Da2xvAFYCgYIARAAGAQSNwF-L9Irginz4fi94VdA29zUPjlpMyuRwJAk7wsPkpGQsnrLQrpt1ICh_LuVE7da2p0xeZKzPvM';
+const CLIENT_ID = 'Your-Client-ID';
+const CLIENT_SECRET = 'Your-Client-Secret';
+const REDIRECT_URI = 'Your-Redirect-URI';
+const REFRESH_TOKEN = 'Your-Redirect-Token';
 
 // creating oAuthClient
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
@@ -34,7 +34,7 @@ async function sendMail(to, sub, html) {
             service: 'gmail',
             auth: {
                 type: 'OAuth2',
-                user: '201901022@daiict.ac.in',
+                user: 'User-Email',
                 clientId: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
                 refreshToken: REFRESH_TOKEN,
@@ -43,7 +43,7 @@ async function sendMail(to, sub, html) {
         })
 
         const mailOptions = {
-            from: 'Dhiraj<201901022@daiict.ac.in>',
+            from: 'from-email',
             to: to,
             subject: sub,
             text: "this sends only simple text",

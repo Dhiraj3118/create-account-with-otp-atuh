@@ -26,10 +26,10 @@ let cpswdEyeSlash = document.getElementById("cpassword-eye-slash");
 /* function sendEmail() {
   Email.send({
     Host: "smtp.elasticemail.com",
-    Username: "201901022@daiict.ac.in",
-    Password: "0EF12074B10E5FDDD2DE36B6B33B2FC17D07",
+    Username: "smtp-username",
+    Password: "smpt-password",
     To: `${email.value}`,
-    From: "201901022@daiict.ac.in",
+    From: "from-email",
     Subject: "OTP for Email Verification",
     Body: `OTP for verification is ${generateOTP()}`,
   }).then(() => {
@@ -43,7 +43,7 @@ let cpswdEyeSlash = document.getElementById("cpassword-eye-slash");
 
 // sending mail using node backend
 function sendEmail() {
-  fetch('http://localhost:8000/api/sendotp', {
+  fetch('link-to-send-email-api-endpoint', {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -70,7 +70,7 @@ function sendEmail() {
 
 // verifying OTP
 function verifyOTP() {
-  fetch("http://localhost:8000/api/verifyotp", {
+  fetch("link-to-verify-otp-api-endpoint", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -178,7 +178,7 @@ function verifyNsubmit() {
 }
 
 function submitToServer(body) {
-  fetch("http://localhost:8000/api/createaccount", {
+  fetch("link-to-submit-form-api-endpoint", {
     method: "POST",
     headers: {
       Accept: "application/json",

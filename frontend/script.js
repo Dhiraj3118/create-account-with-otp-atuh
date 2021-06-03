@@ -1,6 +1,3 @@
-// TODO : Make the site responsive
-
-let globalOTP = "";
 let validCount = [0, 0, 0, 0, 0, 0];
 
 let email = document.getElementById("email");
@@ -23,23 +20,10 @@ let cpswdEye = document.getElementById("cpassword-eye");
 let pswdEyeSlash = document.getElementById("password-eye-slash");
 let cpswdEyeSlash = document.getElementById("cpassword-eye-slash");
 
-// ************************** Functions **************************
+/* ************************** Functions ************************** */
 
-// generating OTP
-function generateOTP() {
-  var string = "0123456789";
-  let OTP = "";
-  var len = string.length;
-  for (let i = 0; i < 6; i++) {
-    OTP += string[Math.floor(Math.random() * len)];
-  }
-  console.log(OTP);
-  globalOTP = OTP;
-  return OTP;
-}
-
-// sending mail
-function sendEmail() {
+// sending mail without backend [Issue: mail goes to spam]
+/* function sendEmail() {
   Email.send({
     Host: "smtp.elasticemail.com",
     Username: "201901022@daiict.ac.in",
@@ -55,33 +39,78 @@ function sendEmail() {
     notYourEmail.textContent = `Change Your Email: ${email.value}`;
   });
 }
+*/
+
+// sending mail using node backend
+function sendEmail() {
+  fetch('http://localhost:8000/api/sendotp', {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Headers": "*"
+    },
+    body: JSON.stringify({ email: email.value })
+  })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      if (data.success) {
+        otpBtn.textContent = "OTP sent";
+        otpBtn.classList.add("sent");
+        otpForm.style.top = "0";
+        notYourEmail.textContent = `Change Your Email: ${email.value}`;
+      }
+      else {
+        alert(data.error)
+      }
+    })
+    .catch(err => console.log(err))
+}
+
+// verifying OTP
+function verifyOTP() {
+  fetch("http://localhost:8000/api/verifyotp", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Headers": "*"
+    },
+    body: JSON.stringify({ email: email.value, otp: otp.value })
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        console.log(data)
+        otpForm.style.top = "-30rem";
+        otpBtn.textContent = "Email Verified";
+        otpBtn.disabled = true;
+        otpBtn.classList.remove("sent");
+        otpBtn.classList.add("verified");
+        email.disabled = true;
+        [firstName, lastName, contact, password, cpassword].forEach(
+          (i) => (i.disabled = false)
+        );
+        validCount[0] = 1;
+        pswdEye.classList.remove("hidden");
+        cpswdEye.classList.remove("hidden");
+      }
+      else {
+        alert(data.error)
+      }
+    })
+    .catch(error => {
+      console.log(error)
+      errorMsg.textContent = "Incorrect OTP";
+    })
+}
 
 // changing Email ID
 function changeEmail() {
   otpForm.style.top = "-30rem";
   otpBtn.textContent = "Send OTP";
   otpBtn.classList.remove("sent");
-}
-
-// verifying OTP
-function verifyOTP() {
-  let input = document.getElementById("OTP").value;
-  if (input.toString() == globalOTP) {
-    otpForm.style.top = "-30rem";
-    otpBtn.textContent = "Email Verified";
-    otpBtn.disabled = true;
-    otpBtn.classList.remove("sent");
-    otpBtn.classList.add("verified");
-    email.disabled = true;
-    [firstName, lastName, contact, password, cpassword].forEach(
-      (i) => (i.disabled = false)
-    );
-    validCount[0] = 1;
-    pswdEye.classList.remove("hidden");
-    cpswdEye.classList.remove("hidden");
-  } else {
-    errorMsg.textContent = "Incorrect OTP";
-  }
 }
 
 // Switching eye buttons
@@ -118,11 +147,29 @@ function switchSubmitBtn() {
   }
 }
 
+// finally submit the form
 function verifyNsubmit() {
   if (contact.value.length == 0) {
     // submit without contact
+    body = {
+      email: email.value,
+      firstname: firstName.value,
+      lastname: lastName.value,
+      password: password.value,
+      cpassword: cpassword.value
+    }
+    submitToServer(body);
   } else if (validCount[3]) {
     // submit with contact
+    body = {
+      email: email.value,
+      firstname: firstName.value,
+      lastname: lastName.value,
+      contact: contact.value,
+      password: password.value,
+      cpassword: cpassword.value
+    }
+    submitToServer(body);
   } else {
     // error at contact. dont submit
     contact.parentElement.nextElementSibling.style.visibility = "visible";
@@ -130,7 +177,31 @@ function verifyNsubmit() {
   }
 }
 
-// ******************** Event Listeners ***************************
+function submitToServer(body) {
+  fetch("http://localhost:8000/api/createaccount", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Headers": "*"
+    },
+    body: JSON.stringify(body)
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert(data.msg);
+        [...document.getElementsByTagName('input')].forEach(inp => {
+          inp.value = "";
+        })
+      }
+      else {
+        alert(data.error);
+      }
+    })
+    .catch(error => console.log(error))
+}
+/* ******************** Event Listeners *************************** */
 
 //  enable/disable send OTP button depending on email
 email.addEventListener("input", () => {
@@ -149,6 +220,7 @@ otpBtn.addEventListener("click", (e) => {
   sendEmail();
 });
 
+// change email
 notYourEmail.addEventListener("click", (e) => {
   e.preventDefault();
   changeEmail();
@@ -202,18 +274,13 @@ cpswdEyeSlash.addEventListener("click", (e) => {
 });
 
 // Form Validation
-firstName.addEventListener("input", () => {
-  validateInput(firstName, 1);
-});
-lastName.addEventListener("input", () => {
-  validateInput(lastName, 2);
-});
-contact.addEventListener("input", () => {
-  validateInput(contact, 3);
-});
-password.addEventListener("input", () => {
-  validateInput(password, 4);
-});
+let arr = [firstName, lastName, contact, password]
+for (let i = 0; i < 4; i++) {
+  arr[i].addEventListener("input", () => {
+    validateInput(arr[i], i + 1);
+  })
+}
+
 cpassword.addEventListener("input", () => {
   if (cpassword.validity.valid && cpassword.value == password.value) {
     validCount[5] = 1;
